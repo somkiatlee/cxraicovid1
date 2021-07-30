@@ -1,0 +1,37 @@
+<html>
+<head>
+
+</head>
+
+<body>
+    <h3>Search data by name: Input name</h3>
+
+    <div>
+        <a href="{{url_for('index')}}">กลับหน้าแรก</a>
+
+        <p>-----------------------------------------------------------------</p>
+    </div>
+
+    <form method="POST" action="/findpatient" enctype="multipart/form-data">
+        ชื่อที่ค้นหา: <input type="text" id="rname" name="rname">
+        <input type="submit" value="ค้าหา">
+    </form>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    $("#findbyname").click(function(){
+        let message = {
+            rname: rname
+        }
+        $.post("http://127.0.0.1:5000/findpatient", JSON.stringify(message), function(response){
+            $("#ffind").text(message);   
+
+        })
+    })
+
+</script>
+
+</html>

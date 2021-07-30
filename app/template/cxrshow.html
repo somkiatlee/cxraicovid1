@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Show selected Patient</title>
+        <h1>แสดงผลการคัดกรอง</h1>
+
+    </head>
+    <body>
+
+        <div>
+            <a href="{{url_for('index')}}">กลับหน้าแรก</a>
+            <a href="{{url_for('cxrlist')}}">ค้นหาข้อมูล </a>
+    
+            <p>-----------------------------------------------------------------</p>
+        </div>
+
+        <ul>
+            {% for sname in sumclists %}
+            <li>
+                <h2>{{sname.username}} {{sname.surname}}</h2>
+                <ol>
+                    {% for item in clists %}
+                    {% if sname.surname == item.surname %}
+                        <li>
+                        <a href="{{url_for('showdetail', _id=item._id)}}">show image: </a>
+                        <span><label disabled>{{item.username}} {{item.surname}}, sex: {{item.sex}},  วันที่บันทึก: {{item.save_date}},  predict: {{item.predict}}, 
+                            probability: {{item.probability}}</label></span>
+                        </li>
+                    {% endif %}
+                    {% endfor %}
+                </ol>
+            </li>
+            {% endfor %}
+        </ul>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+</html>
