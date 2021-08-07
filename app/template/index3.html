@@ -9,7 +9,7 @@
         <a href="{{url_for('cxrlist')}}">ค้นหาข้อมูล </a>
         <p>-----------------------------------------------------------------</p>
 
-        <form method="POST" action="/save_data" enctype="multipart/form-data">
+        <form method="POST" action="/save_data" enctype="multipart/form-data" onsubmit="alfunc()">
             <label for="text" >ชื่อ:</label>
             <input type="text" name="paname" id="paname" required>
             <label for="Surname">นามสกุล:</label>
@@ -29,16 +29,17 @@
             <input type="radio" name="pcr" value="Not test" required><label for="Not test">Not test</label>
             วันที่ทำ LAB: <input type="date" name="pcr_date" id="pcr_date" required><br><br>
             
-            <input type="submit" value="Save" id="save_data" disabled=true><br>
-
+            
             <label>เลือกไฟล์ X Ray</label>
-            <input id="image-selector" type="file"  name="img"/><br>
+            <input id="image-selector" type="file"  name="img"/>
+            <button id="predict-button" disabled=True>Predict</button>
+            <input type="submit" value="Save" id="save_data" disabled=true><br>
 
         </form>
 
         <!-- <label>เลือกไฟล์ X Ray</label> -->
         <!-- <input id="image-selector" type="file"/> -->
-        <button id="predict-button" disabled=True>Predict</button>
+        <!-- <button id="predict-button" disabled=True>Predict</button> -->
         <p>คาดการณ์: <span id="result">...</span></p>
         <p>โอกาส(%): <span id="probability">...</span></p>
         <img id="selected-image" width="400" src=""/>
@@ -91,6 +92,11 @@
 
     let ip = location.host;
     // alert(ip+"/predict")
+
+    function alfunc() {
+        alert("บันทึกข้อมูลแล้ว")
+    }
+
 </script>
 
 </html>

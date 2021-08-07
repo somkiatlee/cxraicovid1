@@ -25,7 +25,7 @@ img_size = 100
 model = load_model('./model/CXR_COVID2.h5')
 # print(model.summary())
 
-label_dict = {0:'Covid19 Positive', 1: 'No Finding'}
+label_dict = {0:'Covid19 Positive', 1: 'Covid19 Negative'}
 predictv = ""
 probabilityv = ""
 
@@ -45,23 +45,26 @@ def preprocess(img):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index1.html')
+    return render_template('index3.html')
 
 @app.route('/predict', methods=["POST", "OPTIONS"])
 def predict():
     # print('HERE')
+    #recive image data
     message = request.get_json(force=True)
     encoded = message['image']
     decoded = base64.b64decode(encoded)
     dataBytesIO = io.BytesIO(decoded)
     dataBytesIO.seek(0)
+    #open image
     image = Image.open(dataBytesIO)
-
+    #process image to AI
     test_image = preprocess(image)
 
     prediction = model.predict(test_image)
     result = np.argmax(prediction, axis=1)[0]
     accuracy = float(np.max(prediction, axis=1)[0])*100
+    accuracy = "%.2f"%accuracy
 
     label = label_dict[result]
 
@@ -70,6 +73,7 @@ def predict():
     global probabilityv
     predictv = label
     probabilityv = accuracy
+    
     
 
     response = {"prediction": {"result": label, "accuracy": accuracy}}
@@ -82,7 +86,7 @@ def predict():
     else:
         raise RuntimeError("Weird - don't know how to handle method{}".format(request.method))    
 
-    #return jsonify(response)
+    # return jsonify(response)
 
 
 
@@ -110,7 +114,9 @@ def save_data():
     pcr_datev = request.form.get('pcr_date')
 
     global predictv, probabilityv
-    probabilityv = round(probabilityv, 2)
+    # probabilityv = round(probabilityv, 2)
+
+    
 
 
     if 'img' in request.files:
@@ -122,7 +128,7 @@ def save_data():
             'atk': atkv, 'atk_date': atk_datev, 'pcr': pcrv, 'pcr_date': pcr_datev
          })
     
-    return render_template('index2.html')
+    return render_template('cxrlist.html')
 
 @app.route('/file/<filename>')
 def file(filename):

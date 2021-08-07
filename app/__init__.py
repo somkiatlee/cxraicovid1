@@ -4,7 +4,7 @@ import os
 
 
 app = Flask(__name__, template_folder='template')
-app.secret_key = os.environ.get('SECRET_KEY')
+# app.secret_key = os.environ.get('SECRET_KEY')
 
 # app.config["MONGO_URI"] = "mongodb+srv://somkarunmongo:phoomteay@cluster0.q3poe.mongodb.net/Chest_X_Ray?retryWrites=true&w=majority"
 
