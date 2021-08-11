@@ -32,17 +32,20 @@
             
             <label>เลือกไฟล์ X Ray</label>
             <input id="image-selector" type="file"  name="img"/>
-            <button id="predict-button" disabled=True>Predict</button>
+
             <input type="submit" value="Save" id="save_data" disabled=true><br>
+            
+            <p>คาดการณ์: <span id="result">...</span></p>
+            <p>โอกาส(%): <span id="probability">...</span></p>
 
         </form>
 
         <!-- <label>เลือกไฟล์ X Ray</label> -->
         <!-- <input id="image-selector" type="file"/> -->
-        <!-- <button id="predict-button" disabled=True>Predict</button> -->
-        <p>คาดการณ์: <span id="result">...</span></p>
-        <p>โอกาส(%): <span id="probability">...</span></p>
-        <img id="selected-image" width="400" src=""/>
+        <button id="predict-button" disabled=True>Predict</button><br>
+        <!-- <p>คาดการณ์: <span id="result">...</span></p>
+        <p>โอกาส(%): <span id="probability">...</span></p> -->
+        <img id="selected-image" width="300" src=""/>
 
         <p>AI for R/O COVID-19 PNEUMONIA By Dr.Somkiat Aroonpakmongkol, Health Center 5 Ratchaburi. </p>
 
