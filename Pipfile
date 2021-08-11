@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 numpy = "*"
-opencv-python = "*"
+opencv-python-headless = "*"
 pillow = "*"
 flask-pymongo = "*"
 flask = "*"

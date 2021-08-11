@@ -23,7 +23,7 @@ db = mongo.db
 img_size = 100
 
 model = load_model('./model/CXR_COVID2.h5')
-# print(model.summary())
+
 
 label_dict = {0:'Covid19 Positive', 1: 'Covid19 Negative'}
 predictv = ""
@@ -49,8 +49,6 @@ def index():
 
 @app.route('/predict', methods=["POST", "OPTIONS"])
 def predict():
-    # print('HERE')
-    #recive image data
     message = request.get_json(force=True)
     encoded = message['image']
     decoded = base64.b64decode(encoded)
@@ -86,7 +84,6 @@ def predict():
     else:
         raise RuntimeError("Weird - don't know how to handle method{}".format(request.method))    
 
-    # return jsonify(response)
 
 
 
@@ -114,7 +111,6 @@ def save_data():
     pcr_datev = request.form.get('pcr_date')
 
     global predictv, probabilityv
-    # probabilityv = round(probabilityv, 2)
 
     
 
