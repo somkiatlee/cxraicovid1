@@ -79,7 +79,7 @@
             image: base64Image
         }
         console.log(message);
-        $.post("http://"+ip+"/predict", JSON.stringify(message),function(response){
+        $.post("https://"+ip+"/predict", JSON.stringify(message),function(response){
             $("#result").text(response.prediction.result);
             $("#probability").text(response.prediction.accuracy);
             console.log(response);
@@ -94,7 +94,7 @@
     })
 
     let ip = location.host;
-    alert(ip+"/predict")
+    // alert(ip+"/predict")
 
     function alfunc() {
         alert("บันทึกข้อมูลแล้ว")
