@@ -29,7 +29,6 @@
             <input type="radio" name="atk" value="Not test" id="atk" required><label for="Not test">Not test</label>
             วันที่ทำ LAB: <input type="date" name="atk_date" name="atk_date" required><br><br>
             
-
             ผล RT-PCR: <input type="radio" name="pcr" value="Non Detected" required><label for="Non Detected">Non Detected</label>
             <input type="radio" name="pcr" value="Detected" required><label for="Detected">Detected</label>
             <input type="radio" name="pcr" value="Not test" required><label for="Not test">Not test</label>
@@ -39,18 +38,19 @@
             <!-- <label>เลือกไฟล์ X Ray</label>
             <input id="image-selector" type="file"  name="img"/> -->
 
+            <!-- <button id="predict-button" disabled=True>Predict</button> -->
             <input type="submit" value="Save" id="save_data" disabled=true>
             <p style="color:blue;">ยินยอมให้ใช้ข้อมูลสำหรับการศึกษาวิจัยทางระบาดวิทยาและการแพทย์</p>
-            <p>คาดการณ์: <span id="result">...</span></p>
-            <p>โอกาส(%): <span id="probability">...</span></p>
+            <!-- <p>คาดการณ์: <span id="result">...</span></p>
+            <p>โอกาส(%): <span id="probability">...</span></p> -->
 
         </form>
 
         <!-- <label>เลือกไฟล์ X Ray</label> -->
         <!-- <input id="image-selector" type="file"/> -->
         <!-- <button id="predict-button" disabled=True>Predict</button><br> -->
-        <!-- <p>คาดการณ์: <span id="result">...</span></p>
-        <p>โอกาส(%): <span id="probability">...</span></p> -->
+        <p>คาดการณ์: <span id="result">...</span></p>
+        <p>โอกาส(%): <span id="probability">...</span></p>
         <img id="selected-image" width="300" src=""/>
 
         <p>AI for R/O COVID-19 PNEUMONIA By Dr.Somkiat Aroonpakmongkol, Health Center 5 Ratchaburi. </p>
