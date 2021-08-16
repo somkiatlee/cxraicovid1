@@ -9,7 +9,7 @@
         <a href="{{url_for('cxrlist')}}">ค้นหาข้อมูล </a>
         <p>-----------------------------------------------------------------</p>
 
-        <button id="predict-button" disabled=True>Predict</button><br>
+        <!-- <button id="predict-button" disabled=True>Predict</button><br> -->
 
         <form method="POST" action="/save_data" enctype="multipart/form-data" onsubmit="alfunc()">
 
@@ -48,7 +48,7 @@
 
         <!-- <label>เลือกไฟล์ X Ray</label> -->
         <!-- <input id="image-selector" type="file"/> -->
-        <!-- <button id="predict-button" disabled=True>Predict</button><br> -->
+        <button id="predict-button" disabled=True>Predict</button><br>
         <p>คาดการณ์: <span id="result">...</span></p>
         <p>โอกาส(%): <span id="probability">...</span></p>
         <img id="selected-image" width="300" src=""/>
