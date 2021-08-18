@@ -27,8 +27,7 @@ model = load_model('./model/CXR_COVID2.h5')
 
 
 label_dict = {0:'Covid19 Positive', 1: 'Covid19 Negative'}
-# predictv = ""
-# probabilityv = ""
+
 
 def preprocess(img):
     img = np.array(img)
@@ -136,7 +135,6 @@ def profile(username):
     predict = user['predict']
     save_date = user['save_date']
     probability = user['probability']
-    # print(user['profile_image_name'])
     return f'''
         <h2>ชื่อ: {username} นามสกุล: {surname}</h2>
         <h2>เพศ: {sex}</h2>

@@ -18,13 +18,13 @@
             <input type="radio" name="sex" value="F" id="F"><label for="F">หญิง</label>
             พ.ศ. เกิด: <input type="number" id="YOB" name="YOB" minlength="4" maxlength="4" required><br><br>
             
-            วันที่ทำ LAB: <input type="date" name="atk_date" name="atk_date" required>
+            วันที่ทำ LAB: <input type="date" name="atk_date" name="atk_date" required><br>
             ผล Antigen Test Kit: <input type="radio" name="atk" value="Negative" id="atk" required><label for="Negative">Negative</label>
             <input type="radio" name="atk" value="Positive" id="atk" required><label for="POsitive">Positive</label>
             <input type="radio" name="atk" value="Not test" id="atk" required><label for="Not test">Not test</label>
             <br><br>
             
-            วันที่ทำ LAB: <input type="date" name="pcr_date" id="pcr_date" required>
+            วันที่ทำ LAB: <input type="date" name="pcr_date" id="pcr_date" required><br>
             ผล RT-PCR: <input type="radio" name="pcr" value="Non Detected" required><label for="Non Detected">Non Detected</label>
             <input type="radio" name="pcr" value="Detected" required><label for="Detected">Detected</label>
             <input type="radio" name="pcr" value="Not test" required><label for="Not test">Not test</label>
@@ -46,7 +46,7 @@
 
         <button id="predict-button" hidden>Predict</button><br>
 
-        <img id="selected-image" width="300" src=""/>
+        <img id="selected-image" width="300" src=""/ hidden>
 
         <p>AI for R/O COVID-19 PNEUMONIA By Dr.Somkiat Aroonpakmongkol, Health Center 5 Ratchaburi. </p>
 
@@ -71,6 +71,8 @@
         
         document.getElementById('fpredict').value = "กดปุ่ม predict";
         document.getElementById('predict-button').removeAttribute("hidden");
+        document.getElementById('selected-image').removeAttribute("hidden")
+
         
         
     });
@@ -80,7 +82,7 @@
             image: base64Image
         }
         console.log(message);
-        $.post("https://"+ip+"/predict", JSON.stringify(message),function(response){
+        $.post("http://"+ip+"/predict", JSON.stringify(message),function(response){
 
             document.getElementById('fpredict').value = response.prediction.result;
             document.getElementById('fprobability').value = response.prediction.accuracy;
