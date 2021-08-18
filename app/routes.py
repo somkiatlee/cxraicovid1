@@ -1,3 +1,4 @@
+import re
 from flask import render_template, request, jsonify, make_response
 from flask.helpers import url_for
 import pymongo
@@ -26,8 +27,8 @@ model = load_model('./model/CXR_COVID2.h5')
 
 
 label_dict = {0:'Covid19 Positive', 1: 'Covid19 Negative'}
-predictv = ""
-probabilityv = ""
+# predictv = ""
+# probabilityv = ""
 
 def preprocess(img):
     img = np.array(img)
@@ -45,7 +46,7 @@ def preprocess(img):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index1.html')
+    return render_template('index.html')
 
 @app.route('/predict', methods=["POST", "OPTIONS"])
 def predict():
@@ -66,12 +67,6 @@ def predict():
 
     label = label_dict[result]
 
-    # print(prediction, result, accuracy)
-    global predictv 
-    global probabilityv
-    predictv = label
-    probabilityv = accuracy
-    
     
 
     response = {"prediction": {"result": label, "accuracy": accuracy}}
@@ -110,7 +105,8 @@ def save_data():
     pcrv = request.form.get('pcr')
     pcr_datev = request.form.get('pcr_date')
 
-    global predictv, probabilityv
+    predict_ = request.form.get('fpredict')
+    probability_ = request.form.get('fprobability')
 
     
 
@@ -119,7 +115,7 @@ def save_data():
         profile_image = request.files['img']
         mongo.save_file(profile_image.filename, profile_image)
         mongo.db.users.insert({
-            'username': namev, 'surname': surnamev, 'sex': sexv, 'yob': yobv, 'predict': predictv, 'probability': probabilityv,
+            'username': namev, 'surname': surnamev, 'sex': sexv, 'yob': yobv, 'predict': predict_, 'probability': probability_,
             'save_date': ts, 'profile_image_name': profile_image.filename,
             'atk': atkv, 'atk_date': atk_datev, 'pcr': pcrv, 'pcr_date': pcr_datev
          })
@@ -154,7 +150,6 @@ def profile(username):
 @app.route('/showdetail/<_id>')
 def showdetail(_id):
     
-    # user = mongo.db.users.find_one_or_404({'profile_image_name': profile_image_name})
     user = mongo.db.users.find_one_or_404({'_id': ObjectId(_id)})
     username = user['username']
     surname = user['surname']
@@ -204,6 +199,5 @@ def findpatient():
 
             vsurname = cxr_list['surname']
 
-    # clen = len(clists)
     
     return render_template('cxrshow.html', clists=clists, sumclists=sumclists)

@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>COVID-19 TESTING</title>
+    </head>
+
+    <body>
+        <h1>อ่านเอกซ์เรย์ทรวงอกสำหรับคัดกรองโควิด-19</h1>
+        <h2>ประเภทไฟล์: png, jpg, jpeg</h2><br>
+        <a href="{{url_for('cxrlist')}}">ค้นหาข้อมูล </a>
+        <p>-----------------------------------------------------------------</p>
+        <form method="POST" action="/save_data" enctype="multipart/form-data" onsubmit="alfunc()">
+
+            <label for="text" >ชื่อ:</label>
+            <input type="text" name="paname" id="paname" required>
+            <label for="Surname">นามสกุล:</label>
+            <input type="text" name="surname" id="surname" required><br><br>
+            เพศ: <input type="radio" name="sex" value="M" id="M"><label for="M">ชาย</label>
+            <input type="radio" name="sex" value="F" id="F"><label for="F">หญิง</label>
+            พ.ศ. เกิด: <input type="number" id="YOB" name="YOB" minlength="4" maxlength="4" required><br><br>
+            
+            วันที่ทำ LAB: <input type="date" name="atk_date" name="atk_date" required>
+            ผล Antigen Test Kit: <input type="radio" name="atk" value="Negative" id="atk" required><label for="Negative">Negative</label>
+            <input type="radio" name="atk" value="Positive" id="atk" required><label for="POsitive">Positive</label>
+            <input type="radio" name="atk" value="Not test" id="atk" required><label for="Not test">Not test</label>
+            <br><br>
+            
+            วันที่ทำ LAB: <input type="date" name="pcr_date" id="pcr_date" required>
+            ผล RT-PCR: <input type="radio" name="pcr" value="Non Detected" required><label for="Non Detected">Non Detected</label>
+            <input type="radio" name="pcr" value="Detected" required><label for="Detected">Detected</label>
+            <input type="radio" name="pcr" value="Not test" required><label for="Not test">Not test</label>
+            <br><br>
+
+            <label>เลือกไฟล์ X Ray</label>
+            <input id="image-selector" type="file"  name="img"/><br><br>
+            
+            คาดการณ์: <input type="text" name="fpredict" id="fpredict" required><br><br>
+            โอกาส(%): <input type="text" name="fprobability" id="fprobability" required><br><br>
+
+
+            <input type="submit" value="Save" id="save_data" hidden>
+            <p style="color:blue;">ยินยอมให้ใช้ข้อมูลสำหรับการศึกษาวิจัยทางระบาดวิทยาและการแพทย์</p>
+
+
+        </form>
+
+
+        <button id="predict-button" hidden>Predict</button><br>
+
+        <img id="selected-image" width="300" src=""/>
+
+        <p>AI for R/O COVID-19 PNEUMONIA By Dr.Somkiat Aroonpakmongkol, Health Center 5 Ratchaburi. </p>
+
+    </body>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    let base64Image;
+    $("#image-selector").change(function() {
+
+
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let dataURL = reader.result;
+            $('#selected-image').attr("src", dataURL);
+            base64Image = dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/,"");
+            console.log(base64Image);
+        }
+        reader.readAsDataURL($("#image-selector")[0].files[0]);
+        
+        document.getElementById('fpredict').value = "กดปุ่ม predict";
+        document.getElementById('predict-button').removeAttribute("hidden");
+        
+        
+    });
+
+    $("#predict-button").click(function() {
+        let message = {
+            image: base64Image
+        }
+        console.log(message);
+        $.post("https://"+ip+"/predict", JSON.stringify(message),function(response){
+
+            document.getElementById('fpredict').value = response.prediction.result;
+            document.getElementById('fprobability').value = response.prediction.accuracy;
+            console.log(response);
+        });
+
+        document.getElementById('save_data').removeAttribute("hidden");
+        
+        $(document).ready(function(){
+            $('#save_date').val(new Date().toDateInputValue());
+        });
+
+    })
+
+    let ip = location.host;
+    // alert(ip+"/predict")
+
+    function alfunc() {
+        alert("บันทึกข้อมูลแล้ว")
+    }
+
+</script>
+
+</html>
