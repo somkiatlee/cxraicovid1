@@ -99,6 +99,7 @@ def save_data():
     sexv = request.form.get('sex')
     yobv = str(request.form.get('YOB'))
     ts = datetime.now()
+    ts = ts.strftime("%c")
     atkv = request.form.get('atk')
     atk_datev = request.form.get('atk_date')
     pcrv = request.form.get('pcr')
