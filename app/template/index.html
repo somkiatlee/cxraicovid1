@@ -82,7 +82,7 @@
             image: base64Image
         }
         console.log(message);
-        $.post("http://"+ip+"/predict", JSON.stringify(message),function(response){
+        $.post("https://"+ip+"/predict", JSON.stringify(message),function(response){
 
             document.getElementById('fpredict').value = response.prediction.result;
             document.getElementById('fprobability').value = response.prediction.accuracy;
