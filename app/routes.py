@@ -181,6 +181,10 @@ def showdetail(_id):
 def cxrlist():
     return render_template('cxrlist.html')
 
+@app.route('/manual')
+def manual():
+    return render_template('manual.html')
+
 @app.route('/findpatient', methods=["POST", "OPTIOBNS"])
 def findpatient():
     rname = request.form.get('rname')
